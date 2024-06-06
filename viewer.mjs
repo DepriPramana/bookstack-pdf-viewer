@@ -13500,7 +13500,7 @@ initCom(PDFViewerApplication);
   PDFPrintServiceFactory.initGlobals(PDFViewerApplication);
 }
 {
-  const HOSTED_VIEWER_ORIGINS = ["null", "http://mozilla.github.io", "https://mozilla.github.io"];
+  const HOSTED_VIEWER_ORIGINS = ["null", "http://mozilla.github.io", "https://mozilla.github.io", "https://drive.google.com"];
   var validateFileURL = function (file) {
     if (!file) {
       return;
@@ -13511,9 +13511,9 @@ initCom(PDFViewerApplication);
         return;
       }
       const fileOrigin = new URL(file, window.location.href).origin;
-      #if (fileOrigin !== viewerOrigin) {
-       # throw new Error("file origin does not match viewer's");
-      #}
+      if (fileOrigin !== viewerOrigin) {
+        throw new Error("file origin does not match viewer's");
+      }
     } catch (ex) {
       PDFViewerApplication._documentError("pdfjs-loading-error", {
         message: ex.message
